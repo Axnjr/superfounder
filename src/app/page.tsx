@@ -29,7 +29,7 @@ export default function Home() {
                 </div>
                 <div className="z-10 flex flex-col w-full ">
                   <h1 className="animate-intro [animation-delay:150ms] text-center sm:text-left  
-                  text-3xl sm:text-4xl lg:text-6xl 
+                  text-5xl lg:text-6xl 
                   sm:max-w-xl xl:max-w-3xl tracking-tighter font-serif font-[800]">
                     {/* Real security for your application in <em className="font-fancier">hours</em>, not weeks */}
                     {/* Your AI Associate for all your start-up needs, from hiring, pitching to marketting */}
@@ -45,7 +45,7 @@ export default function Home() {
               </div>
               <div className="self-end max-w-xl xl:max-w-3xl mt-12">
                 
-                <div className="animate-intro [animation-delay:500ms] lg:text-xl max-w-lg mb-8">
+                <div className="animate-intro [animation-delay:500ms] text-sm lg:text-xl max-w-lg mb-8">
                   From pitching investors, designing, marketing, managing your inbox, scheduling 
                   meetings, building websites, to hiring, everything you need to run your start-up.
                 </div>
