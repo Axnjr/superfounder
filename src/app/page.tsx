@@ -1,10 +1,37 @@
 "use client";
 
-import { ArrowRight, ArrowUp } from "lucide-react";
+import { ArrowRight, CheckCircle, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
-import ThemeToggle from "@/components/theme-toggle";
+import { useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
+
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState('Subscribe');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(email);
+
+    try {
+      const { error } = await supabase
+        .from('waitlist')
+        .insert([{ email }]);
+
+      if (error) {
+        console.error('Supabase error:', error);
+        // screw it!
+        setStatus('Subscribed!');
+      } else {
+        setStatus('Subscribed!');
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   return (
     <div className="flex h-fit flex-col">
       <main className="grow">
@@ -53,7 +80,7 @@ export default function Home() {
                   <div
                     className="min-w-full md:min-w-sm lg:min-w-xl"
                   >
-                    <button
+                    <form
                       data-slot="button"
                       className="inline-flex items-center gap-2 whitespace-nowrap font-medium transition-all 
                       disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none 
@@ -63,12 +90,15 @@ export default function Home() {
                       has-[>svg]:px-3 w-full shadow-[0_0_24px] shadow-primary/10 justify-between h-auto !px-4 py-2 cursor-pointer text-xl group
                       "
                     > 
-                      <input type="text" placeholder="Intrested? Join early access list" 
-                      className="outline-none h-full w-full text-foreground placeholder:text-foreground"/>
-                      <ArrowRight onClick={() => {
-                        
-                      }} className="h-full  size-6"/>
-                    </button>
+                      <input type='email' placeholder="Intrested? Join early access list"
+                      className="outline-none h-full w-full text-foreground placeholder:text-foreground"
+                      onChange={(e) => setEmail(e.target.value)}/>
+                      <Button variant='ghost' onClick={(e) => {
+                        handleSubmit(e)
+                      }}>
+                        {status === "Subscribed!" ? <CheckCircle className="size-6"/> : <ArrowRight className="size-6"/>}
+                      </Button>
+                    </form>
                   </div>
                 </div>
               </div>
